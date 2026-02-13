@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes,useLocation } from "react-router-dom";
 import { LuClipboardList } from "react-icons/lu";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { LuUsers } from "react-icons/lu";
@@ -7,6 +7,8 @@ import { AdminProductPage } from "./admin/adminProductPage";
 import { AdminAddProductPage } from "./admin/adminAddProductPage";
 
 export default function AdminPage(){
+        const location = useLocation();
+
     return(
             <div className="w-full h-full max-h-full flex bg-accent">
 
@@ -19,14 +21,53 @@ export default function AdminPage(){
                         </div>
 
 
-                    <div className="w-full h-[300px flex flex-col ml-[20px] mt-[60px]">
+                  <div className="w-full h-[300px] flex flex-col ml-[20px] mt-[60px] space-y-3">
 
-                            <Link to="/admin" className="w-full flex items-center h-[50px] gap-[10px]"><LuClipboardList />Orders</Link>
-                            <Link to="/admin/products" className="w-full flex items-center h-[50px] gap-[10px]"><MdOutlineProductionQuantityLimits />Products</Link>
-                            <Link to="/admin/users" className="w-full flex items-center h-[50px] gap-[10px]"><LuUsers />Users</Link>
-                            <Link to="/admin/reviews" className="w-full flex items-center h-[50px] gap-[10px]"><VscCodeReview />Reviews</Link>
+    <Link
+        to="/admin"
+        className={`w-full flex items-center h-[50px] gap-[10px] px-4 rounded-xl font-medium transition-all duration-300
+        ${location.pathname === "/admin"
+            ? "bg-blue-600 text-white shadow-md"
+            : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"}`}
+    >
+        <LuClipboardList size={20} />
+        Orders
+    </Link>
 
-                    </div>
+    <Link
+        to="/admin/products"
+        className={`w-full flex items-center h-[50px] gap-[10px] px-4 rounded-xl font-medium transition-all duration-300
+        ${location.pathname === "/admin/products" || location.pathname==="/admin/add-product"
+            ? "bg-blue-600 text-white shadow-md"
+            : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"}`}
+    >
+        <MdOutlineProductionQuantityLimits size={20} />
+        Products
+    </Link>
+
+    <Link
+        to="/admin/users"
+        className={`w-full flex items-center h-[50px] gap-[10px] px-4 rounded-xl font-medium transition-all duration-300
+        ${location.pathname === "/admin/users"
+            ? "bg-blue-600 text-white shadow-md"
+            : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"}`}
+    >
+        <LuUsers size={20} />
+        Users
+    </Link>
+
+    <Link
+        to="/admin/reviews"
+        className={`w-full flex items-center h-[50px] gap-[10px] px-4 rounded-xl font-medium transition-all duration-300
+        ${location.pathname === "/admin/reviews"
+            ? "bg-blue-600 text-white shadow-md"
+            : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"}`}
+    >
+        <VscCodeReview size={20} />
+        Reviews
+    </Link>
+
+</div>
 
                     </div>
 
