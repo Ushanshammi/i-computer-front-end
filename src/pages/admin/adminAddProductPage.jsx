@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import toast from "react-hot-toast";
 import axios from "axios";
+import uploadFile from "../../utils/mediaUpload";
+import { image } from "framer-motion/client";
 
 
 export function AdminAddProductPage(){
@@ -13,7 +15,7 @@ const [altNames,setAltNames]=useState("");
 const [discription,setDiscription]=useState("");
 const [price,setPrice]=useState(0);
 const [labelledPrice,setLabelledPrice]=useState(0);
-const [images,setImages]=useState("");
+const [files,setFiles]=useState([]);
 const [category,setCategory]=useState("");
 const [brand,setBrand]=useState("");
 const [model,setModel]=useState("");
@@ -31,8 +33,8 @@ async function addProduct(){
                      return;
 
             }
-       
-
+            
+                 
 
         if(productID==""||name==""||price==""||brand==""||model==""||stock==""){
             toast.error("Please fill in all required fields.");
@@ -44,7 +46,24 @@ async function addProduct(){
 
         try{
             const altNamesArray=altNames.split(",");
-            const imagesInArray=images.split(",");
+            const imagePromises=[];
+               
+
+                for(let i=0;i<files.length; i++){
+                     
+                    const promise = uploadFile(files[i]);
+                    imagePromises.push(promise);
+                }
+
+                const images = await Promise.all(imagePromises).
+                
+                
+                catch((err)=>{
+                    toast.error("error upload images")
+                    console.log(err)
+                })
+                console.log(images)
+
             
           
 
@@ -56,7 +75,7 @@ async function addProduct(){
                 description:discription,
                 price:price,
                 labelPrice:labelledPrice,
-                images:imagesInArray,
+                images:images,
                 category:category,
                 model:model,
                 brand:brand,
@@ -84,11 +103,11 @@ async function addProduct(){
 
 }
 
-
+   
 
     return(
         
-        <div className="w-full h-full p-[50px] flex justify-center items-start overflow-y-scroll ">
+        <div className="w-full  p-[50px] flex justify-center  overflow-y-scroll ">
 
             <div className="w-[800px] bg-accent/50 rounded-2xl p-[40px]">
             <h1 className="flex justify-center pb-[30px] text-2xl font-bold items-center gap-[15px]" ><MdOutlineAddShoppingCart/>Add New Product</h1>
@@ -160,7 +179,7 @@ async function addProduct(){
 
                                  <label> Images</label>
 
-                                <input type="text" value={images} onChange={(e)=>setImages(e.target.value)} className=" w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"/>
+                                <input type="file" multiple={true} onChange={(e)=>{setFiles(e.target.files);}} className=" w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"/>
 
 
                             </div>

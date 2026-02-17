@@ -1,7 +1,29 @@
+
 import { useState } from "react";
+import uploadFile from "../utils/mediaUpload";
+
+
+
 
 export default function Test(){
+
+    const [file,setFile]=useState(null);
+
+    async function handleUpload(){
+
+        const url=await uploadFile(file);
+        console.log(url)
+    
+    }
+
         return(
-            <div>abc</div>
+            <div className="w-full h-full flex items-center justify-center">
+                <input type="file" onChange={(e)=>{
+                    console.log(e.target.files);
+                    setFile(e.target.files[0]);
+
+                }} />
+                <button onClick={handleUpload} className="bg-red-300 cursor-pointer">Upload</button>
+            </div>
         )
 }

@@ -5,13 +5,17 @@ import { BsPlus } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import Loaded from "../../components/loader";
+import ProductDelete from "../../components/productDeleteButton";
 
 
 
 export function AdminProductPage(){
-
+   
     const [products,setProducts]=useState([]);
-    const [loaded,setLoaded]=useState(false);
+        const [loaded,setLoaded]=useState(false);
+    
+
+    
 
     useEffect(()=>{
 
@@ -25,10 +29,7 @@ export function AdminProductPage(){
                     }
                 )
 
-             }
-
-
-         
+             }   
 
     },[loaded]) //array ekata denna puluvan js vala primitive data type only ,,use effect hook eken venne page eka load veddi eka parak state eka reload karana eka.use state eken venne adala function eke data hamawelema refresh karai
 
@@ -103,34 +104,7 @@ export function AdminProductPage(){
               {item.isAvailable ? "Available" : "Out of Stock"}
             </span>
           </td>
-          <td className="px-4 py-2"><button
-            onClick={
-                ()=>{
-                    const token=localStorage.getItem("token");
-                     axios.delete(import.meta.env.VITE_BACKEND_URL + "/products/" + item.productID,{
-                        headers:{
-                            Authorization: `Bearer ${token}`
-                        }
-                
-                        
-                        
-                
-                }).then(
-                        ()=>{
-                            toast.success("Product Delete Successfully.");
-                            setLoaded(false)
-                        }
-                     )
-
-                }
-                
-                
-                
-
-                
-            }
-
-          className=" cursor-pointer hover:bg-green-200  pl-2 pr-2 pt-1 pb-1 rounded-2xl shadow-xl shadow-gray-200 text-red-700" >Delete</button></td>
+          <td className="px-4 py-2"><ProductDelete productID={item.productID} /></td>
         </tr>
      
      ))}
