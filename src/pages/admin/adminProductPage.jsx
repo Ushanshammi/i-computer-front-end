@@ -104,7 +104,15 @@ export function AdminProductPage(){
               {item.isAvailable ? "Available" : "Out of Stock"}
             </span>
           </td>
-          <td className="px-4 py-2"><ProductDelete productID={item.productID} /></td>
+          <td className="px-4 py-2">
+            <Link to="/admin/update-product" className=" cursor-pointer hover:bg-green-200 pl-2 pr-2 pt-1 pb-1 rounded-[8px] bg-green-300 shadow-xl font-bold text-[15px] shadow-gray-200 text-black-700 mr-[15px]"
+
+              state={item}
+              
+            >Edit</Link>
+            <ProductDelete productID={item.productID} />
+            
+            </td>
         </tr>
      
      ))}
