@@ -6,6 +6,8 @@ import { VscCodeReview } from "react-icons/vsc";
 import { AdminProductPage } from "./admin/adminProductPage";
 import { AdminAddProductPage } from "./admin/adminAddProductPage";
 import { AdminUpdateProductPage } from "./admin/adminUpdateProductPage";
+import { AdminOrderPage } from "./admin/adminOrderPage";
+
 
 export default function AdminPage(){
         const location = useLocation();
@@ -25,9 +27,9 @@ export default function AdminPage(){
                   <div className="w-full h-[300px] flex flex-col ml-[20px] mt-[60px] space-y-3">
 
     <Link
-        to="/admin"
+        to="/admin/order"
         className={`w-full flex items-center h-[50px] gap-[10px] px-4 rounded-xl font-medium transition-all duration-300
-        ${location.pathname === "/admin"
+        ${location.pathname === "/admin/order"
             ? "bg-blue-600 text-white shadow-md"
             : "text-gray-700 hover:bg-blue-50 hover:text-blue-600"}`}
     >
@@ -76,12 +78,14 @@ export default function AdminPage(){
                     <div className="w-[calc(100%-300px)] p-[10px] h-full max-h-full border-[10px] bg-primary rounded-4xl border-accent overflow-y-scroll">
                     
                         <Routes>
-                            <Route path="/" element={<h1>Orders</h1>}/>
+                            <Route path="/" element={<AdminOrderPage/>}/>
                             <Route path="/products" element={<AdminProductPage/>}/>
                             <Route path="/add-product" element={<AdminAddProductPage/>}/>
                             <Route path="/update-product" element={<AdminUpdateProductPage/>}/>
                              <Route path="/users" element={<h1>Users</h1>}/>
                               <Route path="/reviews" element={<h1>Reviews</h1>}/>
+                            
+                             
                         </Routes>
                        </div>
 

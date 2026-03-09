@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 export default function CartPage(){
 
     const [cart,setCart]=useState(getCart());
+  
 
 
     return(
